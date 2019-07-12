@@ -2,13 +2,26 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:local="clr-namespace:XamarinMVVM"
-             x:Class="XamarinMVVM.MainPage">
+             x:Class="XamarinMVVM.MainPage"
+             xmlns:viewmodel="clr-namespace:XamarinMVVM.ViewModels">
+
+    <ContentPage.BindingContext>
+        <viewmodel:MainPageViewModel/>
+    </ContentPage.BindingContext>
 
     <StackLayout>
         <!-- Place new controls here -->
         <Label Text="Construindo MVVM do ZERO" 
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
+
+        <Label Text="{Binding Nome}" 
+           HorizontalOptions="Center"
+           VerticalOptions="CenterAndExpand" />
+
+        <Button Text="Testando"
+                Command="{Binding AlterarNome}"/>
+
     </StackLayout>
 
 </ContentPage>
