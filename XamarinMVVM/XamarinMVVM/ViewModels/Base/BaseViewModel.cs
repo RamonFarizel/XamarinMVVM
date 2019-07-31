@@ -3,12 +3,37 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
 using System.Text;
+using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
 
 namespace XamarinMVVM.ViewModels.Base
 {
     public class BaseViewModel : INotifyPropertyChanged
     {
+        private string _titlePage;
+        public string TitlePage
+        {
+            get { return _titlePage; }
+            set
+            {
+                SetProperty(ref _titlePage, value);
+            }
+        }
+
+        private bool _isBusy;
+        public bool IsBusy
+        {
+            get { return _isBusy; }
+            set
+            {
+                SetProperty(ref _isBusy, value);
+            }
+        }
+
+        public virtual Task LoadAsync(object[] args) => Task.FromResult(true);
+
+        public virtual Task LoadAsync() => Task.FromResult(true);
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         protected virtual void OnPropertyChanged([CallerMemberName]string propertyName = null)
