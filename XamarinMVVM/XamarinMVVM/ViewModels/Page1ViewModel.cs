@@ -18,7 +18,6 @@ namespace XamarinMVVM.ViewModels
         }
 
         private bool _podeNavegar;
-
         public bool PodeNavegar
         {
             get { return _podeNavegar; }
@@ -28,7 +27,6 @@ namespace XamarinMVVM.ViewModels
                 ((Command)CmdVoltar).ChangeCanExecute();
             }
         }
-
 
         public ICommand CmdVoltar { get; set; }
 
