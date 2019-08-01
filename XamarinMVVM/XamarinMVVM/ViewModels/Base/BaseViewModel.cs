@@ -5,6 +5,7 @@ using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using Xamarin.Forms.Internals;
+using XamarinMVVM.Services;
 
 namespace XamarinMVVM.ViewModels.Base
 {
@@ -31,8 +32,8 @@ namespace XamarinMVVM.ViewModels.Base
         }
 
         public virtual Task LoadAsync(object[] args) => Task.FromResult(true);
-
         public virtual Task LoadAsync() => Task.FromResult(true);
+        protected NavigationService Navigation => NavigationService.Current;
 
         public event PropertyChangedEventHandler PropertyChanged;
 

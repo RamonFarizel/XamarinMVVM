@@ -15,11 +15,11 @@
            HorizontalOptions="Center"
            VerticalOptions="CenterAndExpand" />
 
-        <Label Text="{Binding Nome}" 
-           HorizontalOptions="Center"
+        <Entry Text="{Binding Nome}" 
+           HorizontalOptions="FillAndExpand"
            VerticalOptions="CenterAndExpand" />
 
-        <Button Text="Testando"
+        <Button Text="Navegar Pagina2"
                 Command="{Binding AlterarNome}"/>
 
     </StackLayout>

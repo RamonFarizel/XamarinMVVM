@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows.Input;
 using Xamarin.Forms;
+using XamarinMVVM.Services;
 using XamarinMVVM.ViewModels.Base;
+using XamarinMVVM.Views;
 
 namespace XamarinMVVM.ViewModels
 {
@@ -24,9 +27,13 @@ namespace XamarinMVVM.ViewModels
             AlterarNome = new Command(AlterandoNome);
         }
 
-        private void AlterandoNome()
+        private async void AlterandoNome()
         {
-            Nome = "Ramon";
+            Dictionary<string, string> Param = new Dictionary<string, string>();
+            Param.Add("Nome", Nome);
+
+            await Navigation.PushAsync<Page1ViewModel>(false,Param);
+           
         }
     }
 }
