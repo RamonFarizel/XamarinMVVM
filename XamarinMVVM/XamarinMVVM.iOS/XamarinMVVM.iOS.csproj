@@ -124,13 +124,13 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Xamarin.Forms" Version="3.6.0.264807" />
-    <PackageReference Include="Xamarin.Essentials" Version="1.0.1" />
+    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.0" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
   <ItemGroup>
     <ProjectReference Include="..\XamarinMVVM\XamarinMVVM.csproj">
-      <Project>{B44661B5-D319-4E3D-815D-465A75ABBEA8}</Project>
+      <Project>{6077B947-B4D5-4345-9A10-73153462EEA5}</Project>
       <Name>XamarinMVVM</Name>
     </ProjectReference>
   </ItemGroup>

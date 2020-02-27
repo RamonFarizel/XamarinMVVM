@@ -12,28 +12,17 @@ namespace XamarinMVVM.ViewModels
 {
     public class MainPageViewModel : BaseViewModel
     {
-        private string _nome = string.Empty;
-        public string Nome
+        public ICommand NavegarCommand { get; }
+        
+        public MainPageViewModel()
         {
-            get { return _nome; }
-            set {SetProperty(ref(_nome), value); }
+            NavegarCommand = new Command(async () => await ExecuteNavegarCommand());
+            Title = "MainPage";
         }
 
-        public ICommand AlterarNome { get; set; }
-
-       public MainPageViewModel()
+        private async Task ExecuteNavegarCommand()
         {
-            Nome = "Ramon";
-            AlterarNome = new Command(AlterandoNome);
-        }
-
-        private async void AlterandoNome()
-        {
-            Dictionary<string, string> Param = new Dictionary<string, string>();
-            Param.Add("Nome", Nome);
-
-            await Navigation.PushAsync<Page1ViewModel>(false,Param);
-           
+            await Navigation.PushAsync<Page1ViewModel>();
         }
     }
 }

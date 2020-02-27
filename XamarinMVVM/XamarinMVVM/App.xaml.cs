@@ -1,6 +1,8 @@
 ﻿using System;
 using Xamarin.Forms;
 using Xamarin.Forms.Xaml;
+using XamarinMVVM.Services;
+using XamarinMVVM.ViewModels;
 
 namespace XamarinMVVM
 {
@@ -10,7 +12,7 @@ namespace XamarinMVVM
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            NavigationService.Current.SetarMainPage<SplashPageViewModel>();
         }
 
         protected override void OnStart()

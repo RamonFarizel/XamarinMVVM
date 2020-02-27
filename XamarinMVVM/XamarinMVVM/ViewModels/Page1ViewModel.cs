@@ -10,44 +10,15 @@ namespace XamarinMVVM.ViewModels
 {
     public class Page1ViewModel : BaseViewModel
     {
-        private string _nome;
-        public string Nome
+        public ICommand VoltarCommand { get; }
+
+        public Page1ViewModel()
         {
-            get { return _nome; }
-            set { _nome = value; }
+            Title = "Page1";
+            VoltarCommand = new Command(async () => await ExecuteNavegarCommand());
         }
 
-        private bool _podeNavegar;
-        public bool PodeNavegar
-        {
-            get { return _podeNavegar; }
-            set
-            {
-               SetProperty(ref( _podeNavegar) ,value);
-                ((Command)CmdVoltar).ChangeCanExecute();
-            }
-        }
-
-        public ICommand CmdVoltar { get; set; }
-
-        public Page1ViewModel(Dictionary<string, string> Param)
-        {
-            Nome = Param["Nome"];
-            CmdVoltar = new Command(async () => await ExecuteNavegar(), CanExecute);
-            //CmdVoltar.CanExecuteChanged += CmdVoltar_CanExecuteChanged;
-        }
-
-        //private void CmdVoltar_CanExecuteChanged(object sender, EventArgs e)
-        //{
-           
-        //}
-
-        private bool CanExecute()
-        {
-            return PodeNavegar;
-        }
-
-        private async Task ExecuteNavegar()
+        private async Task ExecuteNavegarCommand()
         {
             await Navigation.PopAsync();
         }
