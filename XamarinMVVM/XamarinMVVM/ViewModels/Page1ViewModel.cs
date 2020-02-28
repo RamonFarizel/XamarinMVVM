@@ -14,8 +14,13 @@ namespace XamarinMVVM.ViewModels
 
         public Page1ViewModel()
         {
-            Title = "Page1";
             VoltarCommand = new Command(async () => await ExecuteNavegarCommand());
+        }
+
+        public override async Task InitializeAsync(object[] args)
+        {
+            await Task.Delay(1000);
+            Title = (string)args[0];
         }
 
         private async Task ExecuteNavegarCommand()

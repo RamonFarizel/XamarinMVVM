@@ -22,7 +22,7 @@ namespace XamarinMVVM.ViewModels
 
         private async Task ExecuteNavegarCommand()
         {
-            await Navigation.PushAsync<Page1ViewModel>();
+            await Navigation.PushAsync<Page1ViewModel>(false,"Pagina1 Meu Filho");
         }
     }
 }
