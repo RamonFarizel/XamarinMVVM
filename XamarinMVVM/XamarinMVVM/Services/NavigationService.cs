@@ -1,8 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XamarinMVVM;
 using XamarinMVVM.ViewModels.Base;
 using XamarinMVVM.Views;
 
@@ -18,7 +19,7 @@ namespace XamarinMVVM.Services
 
         INavigation Navigation => (App.Current.MainPage.GetType() == typeof(NavigationPage) ?
             ((NavigationPage)App.Current.MainPage).Navigation :
-            ((NavigationPage)((MasterDetailPage)App.Current.MainPage).Detail).Navigation);
+            ((NavigationPage)((MDPage)App.Current.MainPage).Detail).Navigation);
 
         async Task NavigateTo(Page page)
         {
@@ -26,22 +27,48 @@ namespace XamarinMVVM.Services
 
             Navigation.InsertPageBefore(page, firstPage);
 
-            await Navigation.PopToRootAsync();
+            //await Navigation.PopToRootAsync();
 
-            ((MasterDetailPage)App.Current.MainPage).IsPresented = false;
+            ((MDPage)App.Current.MainPage).IsPresented = false;
         }
 
         public async Task PushAsync<TViewModel>(bool MD = false, params object[] args) where TViewModel : BaseViewModel
         {
             var page = Locator<TViewModel>(args);
 
-            if (MD)//MasterDetail
+            if (MD)
                 await NavigateTo(page);
             else
                 await Navigation.PushAsync(page);
 
 
             await (page.BindingContext as BaseViewModel).InitializeAsync(args);
+        }
+        Page Locator<TViewModel>(object[] args) where TViewModel : BaseViewModel
+        {
+            var viewModelType = typeof(TViewModel);
+            var viewModelTypeName = viewModelType.Name;
+            var viewType = VerificarPage(viewModelType);
+            Page page;
+            if (viewType == null)
+            {
+                var name = typeof(BaseViewModel).AssemblyQualifiedName.Split('.')[0];
+
+                var viewTypeName = $"{name}.Views.{viewModelTypeName.Substring(0, viewModelTypeName.Length - 9)}";
+                viewType = Type.GetType(viewTypeName);
+                page = Activator.CreateInstance(viewType) as Page;
+                CriarMapeamento(page.GetType(), viewModelType);
+            }
+            else
+                page = Activator.CreateInstance(viewType) as Page;
+
+
+            var viewModel = Activator.CreateInstance(viewModelType);
+
+            if (page != null)
+                page.BindingContext = viewModel;
+
+            return page;
         }
 
         public async Task PopAsync() =>
@@ -60,10 +87,8 @@ namespace XamarinMVVM.Services
 
         internal void InitMD()
         {
-            ViewModels.MainPageViewModel vm = new ViewModels.MainPageViewModel();
-            App.Current.MainPage = new NavigationPage(new MainPage() { BindingContext = vm});
-            //App.Current.MainPage = new MDPage();
-            
+            //App.Current.MainPage = null;
+            App.Current.MainPage = new MDPage();
         }
 
 
@@ -97,32 +122,10 @@ namespace XamarinMVVM.Services
             }
         }
 
-        Page Locator<TViewModel>(object[] args) where TViewModel : BaseViewModel
-        {
-            var viewModelType = typeof(TViewModel);
-            var viewModelTypeName = viewModelType.Name;
-            var viewType = VerificarPage(viewModelType);
-            Page page;
-            if (viewType == null)
-            {
-                var name = typeof(BaseViewModel).AssemblyQualifiedName.Split('.')[0];
+        protected readonly Dictionary<Type, Type> mapeamento;
 
-                var viewTypeName = $"{name}.Views.{viewModelTypeName.Substring(0, viewModelTypeName.Length - 9)}";
-                viewType = Type.GetType(viewTypeName);
-                page = Activator.CreateInstance(viewType) as Page;
-                CriarMapeamento(page.GetType(), viewModelType);
-            }
-            else
-                page = Activator.CreateInstance(viewType) as Page;
-
-
-            var viewModel = Activator.CreateInstance(viewModelType);
-
-            if (page != null)
-                page.BindingContext = viewModel;
-
-            return page;
-        }
+        void CriarMapeamento(Type page, Type vm) =>
+            mapeamento.Add(vm, page);
 
         Type VerificarPage(Type vm)
         {
@@ -131,11 +134,5 @@ namespace XamarinMVVM.Services
 
             return mapeamento[vm];
         }
-
-        protected readonly Dictionary<Type, Type> mapeamento;
-
-        void CriarMapeamento(Type page, Type vm) =>
-            mapeamento.Add(vm, page);
     }
-
 }

@@ -24,5 +24,8 @@ namespace XamarinMVVM.ViewModels
         {
             await Navigation.PushAsync<Page1ViewModel>(false,"Pagina1 Meu Filho");
         }
+
+        
+
     }
 }
