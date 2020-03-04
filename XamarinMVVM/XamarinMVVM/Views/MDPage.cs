@@ -6,12 +6,12 @@ namespace XamarinMVVM.Views
 {
     public class MDPage : MasterDetailPage
     {
-        ViewModels.Page1ViewModel vm = new ViewModels.Page1ViewModel();
+        ViewModels.DetailPageViewModel vm = new ViewModels.DetailPageViewModel();
         ViewModels.MasterPageViewModel vmMaster = new ViewModels.MasterPageViewModel();
 
         public MDPage()
         {
-            Detail = new NavigationPage(new Page1(){ BindingContext = vm });
+            Detail = new NavigationPage(new DetailPage(){ BindingContext = vm });
             Master = new MasterPage() { BindingContext = vmMaster };
         }
 

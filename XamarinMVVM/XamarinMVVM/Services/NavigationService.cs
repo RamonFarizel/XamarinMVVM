@@ -23,13 +23,16 @@ namespace XamarinMVVM.Services
 
         async Task NavigateTo(Page page)
         {
-            var firstPage = Navigation.NavigationStack[0];
+            //var firstPage = Navigation.NavigationStack[0];
 
-            Navigation.InsertPageBefore(page, firstPage);
-
-            //await Navigation.PopToRootAsync();
+            //Navigation.InsertPageBefore(page, firstPage);
 
             ((MDPage)App.Current.MainPage).IsPresented = false;
+
+            await Navigation.PopToRootAsync();
+            
+            await (App.Current.MainPage as MDPage).Detail.Navigation.PushAsync(page);
+
         }
 
         public async Task PushAsync<TViewModel>(bool MD = false, params object[] args) where TViewModel : BaseViewModel
@@ -44,6 +47,7 @@ namespace XamarinMVVM.Services
 
             await (page.BindingContext as BaseViewModel).InitializeAsync(args);
         }
+
         Page Locator<TViewModel>(object[] args) where TViewModel : BaseViewModel
         {
             var viewModelType = typeof(TViewModel);

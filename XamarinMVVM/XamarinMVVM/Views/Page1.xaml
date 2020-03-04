@@ -4,10 +4,14 @@
              x:Class="XamarinMVVM.Views.Page1"
              Title="Page1">
     <ContentPage.Content>
-        <StackLayout>
+        <StackLayout VerticalOptions="Center"
+                     HorizontalOptions="Center">
             <Label Text="Você está na Page1"
                 VerticalOptions="CenterAndExpand" 
                 HorizontalOptions="CenterAndExpand" />
+
+            <Button Text="Navegar"
+                    Command="{Binding NavegarCommand}"/>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

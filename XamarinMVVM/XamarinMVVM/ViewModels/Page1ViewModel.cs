@@ -10,10 +10,16 @@ namespace XamarinMVVM.ViewModels
 {
     public class Page1ViewModel : BaseViewModel
     {
+        public ICommand NavegarCommand { get; }
+
         public Page1ViewModel()
         {
-            
+            NavegarCommand = new Command(async () => await ExecuteNavegarCommand());
         }
 
+        private async Task ExecuteNavegarCommand()
+        {
+            await Navigation.PushAsync<PageTesteViewModel>(false);
+        }
     }
 }
