@@ -20,6 +20,7 @@
     <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
     <Folder Include="Views\" />
+    <Folder Include="Services\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -51,5 +52,6 @@
     <Compile Remove="Views\TabbedPage2.xaml.cs" />
     <Compile Remove="Views\SplashPage.xaml.cs" />
     <Compile Remove="Views\TBPage.cs" />
+    <Compile Remove="Services\NavigationService.cs" />
   </ItemGroup>
 </Project>
