@@ -19,11 +19,37 @@
     <Folder Include="Models\" />
     <Folder Include="Behaviors\" />
     <Folder Include="Converters\" />
+    <Folder Include="Views\" />
   </ItemGroup>
 
   <ItemGroup>
-    <EmbeddedResource Update="Views\Page1.xaml">
-      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
-    </EmbeddedResource>
+    <EmbeddedResource Remove="Views\DetailPage.xaml" />
+    <EmbeddedResource Remove="Views\MasterPage.xaml" />
+    <EmbeddedResource Remove="Views\Page2.xaml" />
+    <EmbeddedResource Remove="Views\PageTeste.xaml" />
+    <EmbeddedResource Remove="Views\TabbedPage2.xaml" />
+    <EmbeddedResource Remove="Views\TabbedPage1.xaml" />
+    <EmbeddedResource Remove="Views\SplashPage.xaml" />
+    <EmbeddedResource Remove="Views\Page1.xaml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Remove="Models\PageType.cs" />
+    <Compile Remove="ViewModels\DetailPageViewModel.cs" />
+    <Compile Remove="ViewModels\MainPageViewModel.cs" />
+    <Compile Remove="ViewModels\MasterPageViewModel.cs" />
+    <Compile Remove="ViewModels\TabbedPage2ViewModel.cs" />
+    <Compile Remove="ViewModels\TabbedPage1ViewModel.cs" />
+    <Compile Remove="ViewModels\SplashPageViewModel.cs" />
+    <Compile Remove="Views\DetailPage.xaml.cs" />
+    <Compile Remove="Views\MainPage.xaml.cs" />
+    <Compile Remove="Views\MasterPage.xaml.cs" />
+    <Compile Remove="Views\PageTeste.xaml.cs" />
+    <Compile Remove="Views\TabbedPage1.xaml.cs" />
+    <Compile Remove="Views\Page1.xaml.cs" />
+    <Compile Remove="Views\MDPage.cs" />
+    <Compile Remove="Views\Page2.xaml.cs" />
+    <Compile Remove="Views\TabbedPage2.xaml.cs" />
+    <Compile Remove="Views\SplashPage.xaml.cs" />
+    <Compile Remove="Views\TBPage.cs" />
   </ItemGroup>
 </Project>

@@ -34,7 +34,11 @@ namespace XamarinMVVM.ViewModels
                 case ViewModelType.Pagina2ViewModel:
                     await Navigation.PushAsync<Page2ViewModel>(true);
                     break;
-                }
+
+                case ViewModelType.TabbedPageViewModel:
+                      Navigation.InitTabbedPage();
+                    break;
+             }
             
         }
 
@@ -46,7 +50,7 @@ namespace XamarinMVVM.ViewModels
                 {
                     new PageType { Name = "Pagina 1", TypePage = ViewModelType.Pagina1ViewModel},
                     new PageType { Name = "Pagina 2", TypePage = ViewModelType.Pagina2ViewModel},
-                    new PageType { Name = "Pagina 3", TypePage = ViewModelType.Pagina3ViewModel},
+                    new PageType { Name = "TabbedPage", TypePage = ViewModelType.TabbedPageViewModel},
                 };
 
                 foreach (var item in pages)

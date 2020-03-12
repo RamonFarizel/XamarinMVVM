@@ -21,5 +21,10 @@ namespace XamarinMVVM.ViewModels
         {
             await Navigation.PushAsync<PageTesteViewModel>(false);
         }
+
+        public override Task ReturnAsync(object[] args)
+        {
+            return base.ReturnAsync(args);
+        }
     }
 }

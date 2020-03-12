@@ -23,15 +23,25 @@ namespace XamarinMVVM.Services
 
         async Task NavigateTo(Page page)
         {
+            ////var firstPage = Navigation.NavigationStack[0];
+
+            ////Navigation.InsertPageBefore(page, firstPage);
+
+            ((MDPage)App.Current.MainPage).IsPresented = false;
+
+            //await Navigation.PopToRootAsync();
+
+            await (App.Current.MainPage as MDPage).Detail.Navigation.PushAsync(new NavigationPage(page));
+
+
+
             //var firstPage = Navigation.NavigationStack[0];
 
             //Navigation.InsertPageBefore(page, firstPage);
 
-            ((MDPage)App.Current.MainPage).IsPresented = false;
+            //await Navigation.PopToRootAsync();
 
-            await Navigation.PopToRootAsync();
-            
-            await (App.Current.MainPage as MDPage).Detail.Navigation.PushAsync(page);
+            //((MDPage)App.Current.MainPage).IsPresented = false;
 
         }
 
@@ -42,7 +52,7 @@ namespace XamarinMVVM.Services
             if (MD)
                 await NavigateTo(page);
             else
-                await Navigation.PushAsync(page);
+                await Navigation.PushAsync(new NavigationPage(page));
 
 
             await (page.BindingContext as BaseViewModel).InitializeAsync(args);
@@ -75,8 +85,12 @@ namespace XamarinMVVM.Services
             return page;
         }
 
-        public async Task PopAsync() =>
+        public async Task PopAsync(object[] args)
+        {
             await Application.Current.MainPage.Navigation.PopAsync();
+            await (Application.Current.MainPage.BindingContext as BaseViewModel).ReturnAsync(args);
+        }
+            
 
         public async Task PopToRootAsync() =>
             await Application.Current.MainPage.Navigation.PopToRootAsync();
@@ -93,6 +107,12 @@ namespace XamarinMVVM.Services
         {
             //App.Current.MainPage = null;
             App.Current.MainPage = new MDPage();
+        }
+
+        internal void InitTabbedPage()
+        {
+            App.Current.MainPage = new TBPage();
+            //Navigation.PushAsync(new TBPage());
         }
 
 

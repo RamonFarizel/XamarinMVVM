@@ -12,7 +12,7 @@ namespace XamarinMVVM
         {
             InitializeComponent();
 
-            NavigationService.Current.SetarMainPage<SplashPageViewModel>();
+            
         }
 
         protected override void OnStart()

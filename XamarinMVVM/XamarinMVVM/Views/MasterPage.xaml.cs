@@ -11,5 +11,11 @@ namespace XamarinMVVM.Views
         {
             InitializeComponent();
         }
+
+        public void PageList_ItemSelected(System.Object sender, Xamarin.Forms.SelectedItemChangedEventArgs e)
+        {
+
+            PageList.SelectedItem = null;
+        }
     }
 }

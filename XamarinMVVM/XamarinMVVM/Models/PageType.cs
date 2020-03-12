@@ -11,7 +11,7 @@ namespace XamarinMVVM.Models
     {
         Pagina1ViewModel,
         Pagina2ViewModel,
-        Pagina3ViewModel
+        TabbedPageViewModel
     }
 }
 
