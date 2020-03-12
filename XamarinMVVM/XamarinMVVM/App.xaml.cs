@@ -1,8 +1,4 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
-using XamarinMVVM.Services;
-using XamarinMVVM.ViewModels;
+﻿using Xamarin.Forms;
 
 namespace XamarinMVVM
 {

@@ -21,6 +21,7 @@
     <Folder Include="Converters\" />
     <Folder Include="Views\" />
     <Folder Include="Services\" />
+    <Folder Include="ViewModels\Base\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -32,6 +33,7 @@
     <EmbeddedResource Remove="Views\TabbedPage1.xaml" />
     <EmbeddedResource Remove="Views\SplashPage.xaml" />
     <EmbeddedResource Remove="Views\Page1.xaml" />
+    <EmbeddedResource Remove="Views\MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\PageType.cs" />
@@ -53,5 +55,9 @@
     <Compile Remove="Views\SplashPage.xaml.cs" />
     <Compile Remove="Views\TBPage.cs" />
     <Compile Remove="Services\NavigationService.cs" />
+    <Compile Remove="ViewModels\Base\BaseViewModel.cs" />
+    <Compile Remove="ViewModels\Page2ViewModel.cs" />
+    <Compile Remove="ViewModels\Page1ViewModel.cs" />
+    <Compile Remove="ViewModels\PageTesteViewModel.cs" />
   </ItemGroup>
 </Project>
