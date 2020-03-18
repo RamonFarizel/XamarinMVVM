@@ -1,6 +1,7 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
+using XamarinMVVM.Services;
+using XamarinMVVM.ViewModels;
+using XamarinMVVM.Views;
 
 namespace XamarinMVVM
 {
@@ -10,7 +11,11 @@ namespace XamarinMVVM
         {
             InitializeComponent();
 
-            MainPage = new NavigationPage(new MainPage());
+            NavigationService.Current.CriarMapeamento(typeof(MainPage),typeof(MainPageViewModel));
+            NavigationService.Current.CriarMapeamento(typeof(Pagina1), typeof(Pagina1ViewModel));
+            NavigationService.Current.CriarMapeamento(typeof(Pagina2), typeof(Pagina2ViewModel));
+
+            NavigationService.Current.InitNavigation<MainPageViewModel>(null);
         }
 
         protected override void OnStart()

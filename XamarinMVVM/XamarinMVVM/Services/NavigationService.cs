@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Diagnostics;
+using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using XamarinMVVM.ViewModels.Base;
@@ -9,33 +10,65 @@ namespace XamarinMVVM.Services
 {
     public class NavigationService
     {
-
         static Lazy<NavigationService> LazyNavi = new Lazy<NavigationService>(() => new NavigationService());
         public static NavigationService Current => LazyNavi.Value;
 
-        private Page GetViewModelLocator<TViewModel>(params object[] args) where TViewModel : BaseViewModel
+        INavigation Navigation => ((NavigationPage)App.Current.MainPage).Navigation;
+
+        readonly Dictionary<Type, Type> mapeamento;
+
+        NavigationService() =>
+            mapeamento = new Dictionary<Type, Type>();
+
+        public void CriarMapeamento(Type page, Type vm)
         {
-            Type viewModelType = typeof(TViewModel);
-            string viewModelTypeName = viewModelType.Name;
-            int viewModelWordLength = "ViewModel".Length;
+            mapeamento.Add(vm, page);
+        }
 
-            string[] namespaceSplit = typeof(TViewModel).AssemblyQualifiedName.Split('.');
-            string namespaceName = namespaceSplit[0];
+        public async Task PushAsync<TViewModel>(params object[] args) where TViewModel : BaseViewModel
+        {
+            var pagina = LocalizaPagina<TViewModel>();
 
-            int x = 1;
-            while (namespaceSplit[x] != "ViewModels")
+            await Navigation.PushAsync(pagina);
+            await (pagina.BindingContext as BaseViewModel).InitializeAsync(args);
+        }
+
+        public async Task PopAsync(params object[] args)
+        {
+            await Application.Current.MainPage.Navigation.PopAsync();
+
+            var page = Application.Current.MainPage.Navigation.NavigationStack.Last();
+            
+            await (page.BindingContext as BaseViewModel).ReturnedAsync(args);
+            
+        }
+
+        internal async void InitNavigation<TViewModel>(object[] args) where TViewModel : BaseViewModel
+        {
+            var pagina = LocalizaPagina<TViewModel>();
+
+            if (App.Current.MainPage is null)
             {
-                namespaceName += "." + namespaceSplit[x];
-                x++;
+                App.Current.MainPage = new NavigationPage(pagina);
+
+                await (pagina.BindingContext as BaseViewModel).InitializeAsync(args);
             }
+        }
 
-            string viewTypeName = $"{namespaceName}.Views.{viewModelTypeName.Substring(0, viewModelTypeName.Length - viewModelWordLength)}";
+        Page LocalizaPagina<TViewModel>() where TViewModel : BaseViewModel
+        {
+            var viewModelType = typeof(TViewModel);
 
-            Type viewType = Type.GetType(viewTypeName + "," + namespaceName + ".dll");
+            var viewType = VerificarPage(viewModelType);
+            Page page;
 
-            Page page = Activator.CreateInstance(viewType) as Page;
+            if (viewType is null)
+                return null;
 
-            var viewModel = Activator.CreateInstance(viewModelType, args);
+            page = Activator.CreateInstance(viewType) as Page;
+
+
+            var viewModel = Activator.CreateInstance(viewModelType);
 
             if (page != null)
                 page.BindingContext = viewModel;
@@ -43,35 +76,12 @@ namespace XamarinMVVM.Services
             return page;
         }
 
-        public async Task PushAsync<TViewModel>(bool modal = false, params object[] args) where TViewModel : BaseViewModel
+        Type VerificarPage(Type vm)
         {
-            Page page = GetViewModelLocator<TViewModel>(args);
+            if (!mapeamento.ContainsKey(vm))
+                return null;
 
-            if (modal)
-                await Application.Current.MainPage.Navigation.PushModalAsync(page);
-            else
-                await Application.Current.MainPage.Navigation.PushAsync(page);
-
-            await (page.BindingContext as BaseViewModel).LoadAsync(args);
+            return mapeamento[vm];
         }
-
-        public async Task SetRootAsync<TViewModel>(params object[] args) where TViewModel : BaseViewModel
-        {
-            Page page = GetViewModelLocator<TViewModel>(args);
-
-            Application.Current.MainPage = new NavigationPage(page);
-
-            await (page.BindingContext as BaseViewModel).LoadAsync(args);
-        }
-
-        public async Task PopAsync() =>
-           await Application.Current.MainPage.Navigation.PopAsync();
-
-        public async Task PopModalAsync() =>
-               await Application.Current.MainPage.Navigation.PopModalAsync();
-
-        public async Task PopToRootAsync() =>
-              await Application.Current.MainPage.Navigation.PopToRootAsync();
-
     }
 }
