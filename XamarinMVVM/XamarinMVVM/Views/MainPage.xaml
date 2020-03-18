@@ -3,11 +3,16 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="XamarinMVVM.Views.MainPage"
              Title="{Binding Title}">
+
     <ContentPage.Content>
+
         <StackLayout VerticalOptions="Center">
-            <Button Text="Navigate"
+            <Label Text="MainPage"/>
+
+            <Button Text="Navegar"
                     Command="{Binding NavegarCommand}"/>
-            
+
         </StackLayout>
+
     </ContentPage.Content>
 </ContentPage>

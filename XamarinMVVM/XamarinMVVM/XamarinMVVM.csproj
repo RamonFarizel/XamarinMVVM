@@ -33,18 +33,15 @@
     <EmbeddedResource Remove="Views\TabbedPage1.xaml" />
     <EmbeddedResource Remove="Views\SplashPage.xaml" />
     <EmbeddedResource Remove="Views\Page1.xaml" />
-    <EmbeddedResource Remove="Views\MainPage.xaml" />
   </ItemGroup>
   <ItemGroup>
     <Compile Remove="Models\PageType.cs" />
     <Compile Remove="ViewModels\DetailPageViewModel.cs" />
-    <Compile Remove="ViewModels\MainPageViewModel.cs" />
     <Compile Remove="ViewModels\MasterPageViewModel.cs" />
     <Compile Remove="ViewModels\TabbedPage2ViewModel.cs" />
     <Compile Remove="ViewModels\TabbedPage1ViewModel.cs" />
     <Compile Remove="ViewModels\SplashPageViewModel.cs" />
     <Compile Remove="Views\DetailPage.xaml.cs" />
-    <Compile Remove="Views\MainPage.xaml.cs" />
     <Compile Remove="Views\MasterPage.xaml.cs" />
     <Compile Remove="Views\PageTeste.xaml.cs" />
     <Compile Remove="Views\TabbedPage1.xaml.cs" />
@@ -54,8 +51,6 @@
     <Compile Remove="Views\TabbedPage2.xaml.cs" />
     <Compile Remove="Views\SplashPage.xaml.cs" />
     <Compile Remove="Views\TBPage.cs" />
-    <Compile Remove="Services\NavigationService.cs" />
-    <Compile Remove="ViewModels\Base\BaseViewModel.cs" />
     <Compile Remove="ViewModels\Page2ViewModel.cs" />
     <Compile Remove="ViewModels\Page1ViewModel.cs" />
     <Compile Remove="ViewModels\PageTesteViewModel.cs" />

@@ -5,6 +5,7 @@ using System.Globalization;
 using System.Runtime.CompilerServices;
 using System.Threading.Tasks;
 using Xamarin.Forms;
+using XamarinMVVM.Services;
 
 namespace XamarinMVVM.ViewModels.Base
 {
@@ -35,7 +36,7 @@ namespace XamarinMVVM.ViewModels.Base
 
         public virtual Task InitializeAsync(object[] args) => Task.FromResult(true);
 
-        public virtual Task ReturnAsync(object[] args) => Task.FromResult(true);
+        public virtual Task ReturnedAsync(object[] args) => Task.FromResult(true);
 
         protected NavigationService Navigation => NavigationService.Current;
 
